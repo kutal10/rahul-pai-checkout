@@ -1,0 +1,13 @@
+name: rahul-pai-solution
+
+services:
+  bank_simulator:
+    build:
+      context: ./imposters
+      dockerfile_inline: |
+        FROM bbyars/mountebank:2.8.1
+        COPY bank_simulator.ejs /imposters/bank_simulator.ejs
+    ports:
+      - "127.0.0.1:2525:2525"
+      - "127.0.0.1:8080:8080"
+    command: --configfile /imposters/bank_simulator.ejs --allowInjection
